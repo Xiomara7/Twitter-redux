@@ -28,7 +28,6 @@ class MenuViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let tweetsNavController = storyboard.instantiateViewController(withIdentifier: "TweetsNC") as! UINavigationController
-        let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileNC") as! UINavigationController
         let mentionsNavController = storyboard.instantiateViewController(withIdentifier: "MentionsNC") as! UINavigationController
         
         let tweetsController = storyboard.instantiateViewController(withIdentifier: "TweetsController") as! TweetsViewController
@@ -36,14 +35,13 @@ class MenuViewController: UIViewController {
         let mentionsController = storyboard.instantiateViewController(withIdentifier: "MentionsController") as! MentionsViewController
         
         navControllers.append(tweetsNavController)
-        navControllers.append(profileNavController)
         navControllers.append(mentionsNavController)
         
         viewControllers.append(tweetsController)
         viewControllers.append(profileController)
         viewControllers.append(mentionsController)
         
-        hamburgerController.contentNavController = tweetsNavController
+        hamburgerController.contentController = tweetsController
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +66,6 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        hamburgerController.contentNavController = navControllers[indexPath.row]
+        hamburgerController.contentController = viewControllers[indexPath.row]
     }
 }

@@ -17,7 +17,7 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var leftMarginConstraints: NSLayoutConstraint!
     var originalLeftMargin: CGFloat!
     
-    var menuNavController: UINavigationController! {
+    var menuController: UIViewController! {
         didSet(oldContentController) {
             view.layoutIfNeeded()
             
@@ -27,8 +27,6 @@ class HamburgerViewController: UIViewController {
                 
                 oldContentController.didMove(toParentViewController: nil)
             }
-            
-            let menuController = menuNavController.topViewController!
             
             menuController.willMove(toParentViewController: self)
             menuView.addSubview(menuController.view)
@@ -37,7 +35,7 @@ class HamburgerViewController: UIViewController {
         }
     }
     
-    var contentNavController: UINavigationController! {
+    var contentController: UIViewController! {
         didSet(oldContentController) {
             view.layoutIfNeeded()
             
@@ -47,9 +45,7 @@ class HamburgerViewController: UIViewController {
                 
                 oldContentController.didMove(toParentViewController: nil)
             }
-            
-            let contentController = contentNavController.topViewController!
-            
+                    
             contentController.willMove(toParentViewController: self)
             contentView.addSubview(contentController.view)
             
