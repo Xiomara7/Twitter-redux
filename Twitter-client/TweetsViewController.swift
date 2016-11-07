@@ -18,29 +18,9 @@ class TweetsViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var isMoreDataLoading: Bool = false
     
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var contentView: UIView!
-    
-    @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
-    var originalLeftMargin: CGFloat!
-    
-    var menuController: UIViewController! {
-        didSet {
-            view.layoutIfNeeded()
-            menuView.addSubview(menuController.view)
-        }
-    }
-    
-    var contentController: UIViewController! {
-        didSet {
-            view.layoutIfNeeded()
-            contentView.addSubview(contentController.view)
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -77,29 +57,6 @@ class TweetsViewController: UIViewController {
     
     @IBAction func onSignOutButton(_ sender: AnyObject) {
         TwitterClient.sharedInstance?.logout()
-        
-    }
-
-    @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: view)
-        let velocity = sender.velocity(in: view)
-        
-        if sender.state == UIGestureRecognizerState.began {
-            originalLeftMargin = leftMarginConstraint.constant
-        } else if sender.state == UIGestureRecognizerState.changed {
-            leftMarginConstraint.constant = originalLeftMargin + translation
-            .x
-        } else if sender.state == UIGestureRecognizerState.ended {
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                if velocity.x > 0 {
-                    self.leftMarginConstraint.constant = self.view.frame.size.width - 50
-                } else {
-                    self.leftMarginConstraint.constant = 0
-                }
-                self.view.layoutIfNeeded()
-            })
-        }
     }
     
     // MARK: - Selector Methods
