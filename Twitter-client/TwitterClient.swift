@@ -140,6 +140,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    func mentions(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        get("1.1/statuses/mentions_timeline.json",
+            parameters: nil,
+            progress: nil,
+            success: { (_, response) in
+                print("mentions \(response)")
+                
+                let dictionaries = response as! [NSDictionary]
+                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+                success(tweets)
+                
+        }) { (_, error) in
+            failure(error)
+        }
+        
+    }
+    
     func handleOpenURL(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         

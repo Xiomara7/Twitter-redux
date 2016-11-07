@@ -1,20 +1,20 @@
 //
-//  TweetCell.swift
+//  MentionCellTableViewCell.swift
 //  Twitter-client
 //
-//  Created by Xiomara on 10/30/16.
+//  Created by Xiomara on 11/7/16.
 //  Copyright © 2016 Xiomara. All rights reserved.
 //
 
 import UIKit
 
-class TweetCell: UITableViewCell {
+class MentionCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var screenName: UILabel!
-    @IBOutlet weak var timestamp: UILabel!
-    @IBOutlet weak var tweetText: UILabel!
+    @IBOutlet weak var tweet: UILabel!
+    @IBOutlet weak var inReplyTo: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,8 +26,9 @@ class TweetCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        profileImageView.layer.cornerRadius = 5.0
-        profileImageView.layer.masksToBounds = true
+        
+        profileImage.layer.cornerRadius = 5.0
+        profileImage.layer.masksToBounds = true
     }
+
 }

@@ -16,9 +16,12 @@ class Tweet: NSObject {
     var favoritesCount: Int = 0
     var favorited: Bool?
     var retweeted: Bool?
+    var inReplyTo: Int?
     var id: Int?
     
     var user: User?
+    
+    var userMentions: [NSDictionary]?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -28,6 +31,9 @@ class Tweet: NSObject {
         
         favorited = dictionary["favorited"] as? Bool
         retweeted = dictionary["retweeted"] as? Bool
+        
+        inReplyTo = dictionary["in_reply_to_status_id"] as? Int
+        userMentions = dictionary["user_mentions"] as? [NSDictionary]
         
         let timestampString = dictionary["created_at"] as? String
         let formatter = DateFormatter()

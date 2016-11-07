@@ -16,6 +16,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var headerImageView: UIImageView!
     
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var screenName: UILabel!
+    @IBOutlet weak var tagLineLabel: UILabel!
     @IBOutlet weak var friendsCount: UILabel!
     @IBOutlet weak var followersCount: UILabel!
     
@@ -27,26 +30,26 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        profileImageView.backgroundColor = UIColor.gray
         profileImageView.layer.masksToBounds = true
         profileImageView.layer.cornerRadius = 5.0
         
-        TwitterClient.sharedInstance?.currentAccount(success: { user in
-            self.currentUser = user
+        if User.currentUser != nil {
+            let user = User.currentUser!
             
-            self.profileImageView.setImageWith(self.currentUser.profileURL as! URL)
-            self.headerImageView.setImageWith(self.currentUser.headerURL as! URL)
+            profileImageView.setImageWith(user.profileURL as! URL)
+            headerImageView.setImageWith(user.headerURL as! URL)
             
-            if let followers = self.currentUser.followers {
-                self.followersCount.text = "\(followers)"
+            username.text = user.name
+            screenName.text = "@\(user.screenName)"
+            tagLineLabel.text = user.tagLine
+            
+            if let followers = user.followers {
+                followersCount.text = "\(followers)"
             }
-            if let friends = self.currentUser.friends {
-                self.friendsCount.text = "\(friends)"
+            if let friends = user.friends {
+                friendsCount.text = "\(friends)"
             }
-            
-        }, failure: { error in
-            //error
-        })
+        }
     }
 
     override func didReceiveMemoryWarning() {
