@@ -75,6 +75,8 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: nil,
             progress: nil,
             success: { (_, response) in
+                print("current account: \(response)")
+                
                 let userDict = response as! NSDictionary
                 let user = User(dictionary: userDict)
                 success(user)

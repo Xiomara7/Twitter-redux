@@ -55,6 +55,10 @@ class TweetsViewController: UIViewController {
         }
     }
     
+    @IBAction func onTapProfileImage(_ sender: UITapGestureRecognizer) {
+        print("pressed profile")
+    }
+    
     @IBAction func onSignOutButton(_ sender: AnyObject) {
         TwitterClient.sharedInstance?.logout()
     }

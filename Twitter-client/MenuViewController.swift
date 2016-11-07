@@ -28,6 +28,7 @@ class MenuViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let tweetsNavController = storyboard.instantiateViewController(withIdentifier: "TweetsNC") as! UINavigationController
+        let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileNC") as! UINavigationController
         let mentionsNavController = storyboard.instantiateViewController(withIdentifier: "MentionsNC") as! UINavigationController
         
         let tweetsController = storyboard.instantiateViewController(withIdentifier: "TweetsController") as! TweetsViewController
@@ -35,25 +36,26 @@ class MenuViewController: UIViewController {
         let mentionsController = storyboard.instantiateViewController(withIdentifier: "MentionsController") as! MentionsViewController
         
         navControllers.append(tweetsNavController)
+        navControllers.append(profileNavController)
         navControllers.append(mentionsNavController)
         
         viewControllers.append(tweetsController)
         viewControllers.append(profileController)
         viewControllers.append(mentionsController)
         
-        hamburgerController.contentController = tweetsController
+        hamburgerController.contentController = tweetsNavController
+        //hamburgerController.contentView = tweetsNavController.view
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
 }
 
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewControllers.count
+        return navControllers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,6 +68,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        hamburgerController.contentController = viewControllers[indexPath.row]
+        hamburgerController.contentController = navControllers[indexPath.row]
+        //hamburgerController.contentView = viewControllers[indexPath.row].view
     }
 }

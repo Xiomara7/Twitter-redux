@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let menuController = menuNavController.topViewController as! MenuViewController
             
             menuController.hamburgerController = hamburgerController
-            hamburgerController.menuController = menuController
+            hamburgerController.menuController = menuNavController
         }
         
         NotificationCenter.default.addObserver(

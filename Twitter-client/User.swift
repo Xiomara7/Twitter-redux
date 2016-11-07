@@ -13,8 +13,12 @@ class User: NSObject {
     var name: String?
     var screenName: String?
     var profileURL: NSURL?
+    var headerURL: NSURL?
     var tagLine: String?
-
+    var location: String?
+    var followers: Int?
+    var friends: Int?
+    
     var dictionary: NSDictionary
     
     init(dictionary: NSDictionary) {
@@ -23,10 +27,18 @@ class User: NSObject {
         name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
         tagLine = dictionary["description"] as? String
+        followers = dictionary["followers_count"] as? Int
+        friends = dictionary["friends_count"] as? Int
+        location = dictionary["location"] as? String
         
         let profileURLString = dictionary["profile_image_url_https"]
         if let profileURLString = profileURLString {
             profileURL = NSURL(string: profileURLString as! String)
+        }
+        
+        let headerURLString = dictionary["profile_banner_url"]
+        if let headerURLString = headerURLString {
+            headerURL = NSURL(string: headerURLString as! String)
         }
     }
     

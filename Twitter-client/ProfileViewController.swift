@@ -14,6 +14,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var headerImageView: UIImageView!
+    
+    @IBOutlet weak var friendsCount: UILabel!
+    @IBOutlet weak var followersCount: UILabel!
     
     var currentUser: User!
     
@@ -29,7 +33,17 @@ class ProfileViewController: UIViewController {
         
         TwitterClient.sharedInstance?.currentAccount(success: { user in
             self.currentUser = user
+            
             self.profileImageView.setImageWith(self.currentUser.profileURL as! URL)
+            self.headerImageView.setImageWith(self.currentUser.headerURL as! URL)
+            
+            if let followers = self.currentUser.followers {
+                self.followersCount.text = "\(followers)"
+            }
+            if let friends = self.currentUser.friends {
+                self.friendsCount.text = "\(friends)"
+            }
+            
         }, failure: { error in
             //error
         })

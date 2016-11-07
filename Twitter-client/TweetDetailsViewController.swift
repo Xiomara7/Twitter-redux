@@ -92,7 +92,7 @@ class TweetDetailsViewController: UIViewController {
                 self.retweetsCount.text = "\(tweet.retweetCount + 1)"
                 self.retweetImage.isSelected = true
                 
-                self.navigationController?.popViewController(animated: true)
+                //self.navigationController?.popViewController(animated: true)
                 
             }, failure: { error in
                 print(error.localizedDescription)
@@ -109,7 +109,7 @@ class TweetDetailsViewController: UIViewController {
                 self.favoritesCount.text = "\(tweet.favoritesCount + 1)"
                 self.favoriteImage.isSelected = true
                 
-                self.navigationController?.popViewController(animated: true)
+                //self.navigationController?.popViewController(animated: true)
                 
             }, failure: { error in
                 print(error.localizedDescription)
