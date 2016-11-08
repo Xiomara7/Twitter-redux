@@ -1,6 +1,6 @@
 # Project 4 - *Twitter-redux*
 
-Time spent: **15** hours spent in total
+Time spent: **25** hours spent in total
 
 ## User Stories
 
@@ -16,24 +16,10 @@ The following **required** functionality is completed:
 - [x] Home Timeline
    - [x] Tapping on a user image should bring up that user's profile page
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-  1.
-  2.
-
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![twitter](https://cloud.githubusercontent.com/assets/3449724/20091023/481864cc-a545-11e6-88ee-1bc5df4b4add.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
