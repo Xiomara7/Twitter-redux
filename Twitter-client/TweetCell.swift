@@ -11,6 +11,7 @@ import UIKit
 class TweetCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var screenName: UILabel!
     @IBOutlet weak var timestamp: UILabel!
@@ -29,5 +30,9 @@ class TweetCell: UITableViewCell {
 
         profileImageView.layer.cornerRadius = 5.0
         profileImageView.layer.masksToBounds = true
+    }
+    
+    override func prepareForReuse() {
+        profileImageView.image = nil
     }
 }

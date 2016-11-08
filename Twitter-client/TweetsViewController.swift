@@ -24,6 +24,9 @@ class TweetsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.estimatedRowHeight = 200.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         self.getHomeTimeLine()
         
         refreshControl = UIRefreshControl(frame: CGRect.zero)
@@ -40,7 +43,7 @@ class TweetsViewController: UIViewController {
         
         self.getHomeTimeLine()
     }
-
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -56,7 +59,15 @@ class TweetsViewController: UIViewController {
     }
     
     @IBAction func onTapProfileImage(_ sender: UITapGestureRecognizer) {
-        print("pressed profile")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileController") as! ProfileViewController
+        
+        if let tag = sender.view?.tag {
+            let tweet = tweets[tag]
+            profileVC.currentUser = tweet.user
+            
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
     }
     
     @IBAction func onSignOutButton(_ sender: AnyObject) {
@@ -74,9 +85,8 @@ class TweetsViewController: UIViewController {
         TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
-            
-            }, failure: { (error) in
-                print("Error: \(error.localizedDescription)")
+        }, failure: { (error) in
+            print("Error: \(error.localizedDescription)")
         })
     }
 }
@@ -105,16 +115,15 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let profileURL = tweet.user?.profileURL {
             cell.profileImageView.setImageWith(profileURL as URL)
+            cell.profileImageView.tag = indexPath.row
         }
         
-        if let time = tweet.timestamp {
-            let formatter = DateFormatter()
-            let hours = time.timeIntervalSinceNow
-            
-            print("hours \(hours)")
-            
-            //cell.timestamp.text = formatter.string(from: time.timeIntervalSinceNow as Date)
-        }
+        //if let time = tweet.timestamp {
+        //    let formatter = DateFormatter()
+        //    let hours = time.timeIntervalSinceNow
+        //    
+        //    cell.timestamp.text = formatter.string(from: time.timeIntervalSinceNow as Date)
+        //}
         
         return cell
     }

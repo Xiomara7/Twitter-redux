@@ -33,27 +33,36 @@ class ProfileViewController: UIViewController {
         profileImageView.layer.masksToBounds = true
         profileImageView.layer.cornerRadius = 5.0
         
-        if User.currentUser != nil {
-            let user = User.currentUser!
-            
-            profileImageView.setImageWith(user.profileURL as! URL)
-            headerImageView.setImageWith(user.headerURL as! URL)
-            
-            username.text = user.name
-            screenName.text = "@\(user.screenName)"
-            tagLineLabel.text = user.tagLine
-            
-            if let followers = user.followers {
-                followersCount.text = "\(followers)"
+        if currentUser == nil {
+            if User.currentUser != nil {
+                currentUser = User.currentUser!
+                self.setProfileInfo()
             }
-            if let friends = user.friends {
-                friendsCount.text = "\(friends)"
-            }
+        } else {
+            self.setProfileInfo()
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func setProfileInfo() {
+        profileImageView.setImageWith(currentUser.profileURL as! URL)
+        headerImageView.setImageWith(currentUser.headerURL as! URL)
+        
+        username.text = currentUser.name
+        tagLineLabel.text = currentUser.tagLine
+        
+        if let screenname = currentUser.screenName {
+            screenName.text = "@\(screenname)"
+        }
+        if let followers = currentUser.followers {
+            followersCount.text = "\(followers)"
+        }
+        if let friends = currentUser.friends {
+            friendsCount.text = "\(friends)"
+        }
     }
 }
 

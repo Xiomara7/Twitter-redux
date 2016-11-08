@@ -20,6 +20,9 @@ class MentionsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.estimatedRowHeight = 100.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         TwitterClient.sharedInstance?.mentions(success: { tweets in
             self.mentions = tweets
             self.tableView.reloadData()
@@ -49,10 +52,13 @@ extension MentionsViewController: UITableViewDelegate, UITableViewDataSource {
         let tweet = mentions[indexPath.row]
     
         cell.username.text = tweet.user?.name
-        cell.screenName.text = tweet.user?.screenName
+        
+        if let screenname = tweet.user?.screenName {
+            cell.screenName.text = "@\(screenname)"
+        }
         
         cell.tweet.text = tweet.text
-        cell.inReplyTo.text = "In reply to Xio"
+        cell.inReplyTo.text = "In reply to Xiomara Figueroa"
         
         if let profileURL = tweet.user?.profileURL {
             cell.profileImage.setImageWith(profileURL as URL)

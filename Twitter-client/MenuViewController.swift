@@ -13,11 +13,13 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var tweetsController: TweetsViewController!
+    var hamburgerController: HamburgerViewController!
+    
     var navControllers: [UINavigationController] = []
     var viewControllers: [UIViewController] = []
-    var menuSections = ["timeline", "profile", "mentions"]
     
-    var hamburgerController: HamburgerViewController!
+    var menuSections = ["timeline", "profile", "mentions"]
+    var cellImages = ["timeline", "me", "love"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,26 +27,20 @@ class MenuViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let tweetsNavController = storyboard.instantiateViewController(withIdentifier: "TweetsNC") as! UINavigationController
         let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileNC") as! UINavigationController
         let mentionsNavController = storyboard.instantiateViewController(withIdentifier: "MentionsNC") as! UINavigationController
         
-        let tweetsController = storyboard.instantiateViewController(withIdentifier: "TweetsController") as! TweetsViewController
-        let profileController = storyboard.instantiateViewController(withIdentifier: "ProfileController") as! ProfileViewController
-        let mentionsController = storyboard.instantiateViewController(withIdentifier: "MentionsController") as! MentionsViewController
-        
         navControllers.append(tweetsNavController)
         navControllers.append(profileNavController)
         navControllers.append(mentionsNavController)
         
-        viewControllers.append(tweetsController)
-        viewControllers.append(profileController)
-        viewControllers.append(mentionsController)
-        
         hamburgerController.contentController = tweetsNavController
-        //hamburgerController.contentView = tweetsNavController.view
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +56,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
+        
         cell.textLabel?.text = menuSections[indexPath.row]
+        cell.imageView?.image = UIImage(named: cellImages[indexPath.row])
         
         return cell
     }
@@ -69,6 +67,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         hamburgerController.contentController = navControllers[indexPath.row]
-        //hamburgerController.contentView = viewControllers[indexPath.row].view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
     }
 }

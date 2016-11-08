@@ -12,6 +12,7 @@ class Tweet: NSObject {
 
     var text: String?
     var timestamp: NSDate?
+    var mediaURL: NSURL?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
     var favorited: Bool?
@@ -46,6 +47,13 @@ class Tweet: NSObject {
         if let userDict = dictionary["user"] as? NSDictionary {
             user = User(dictionary: userDict)
         }
+        
+        if let entities = dictionary["entities"] as? NSDictionary {
+            if let media = entities["media"] as? NSDictionary {
+                mediaURL = NSURL(string: media["media_url"] as! String)
+            }
+        }
+        
     }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
