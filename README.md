@@ -20,6 +20,6 @@ The following **required** functionality is completed:
 
 Here's a walkthrough of implemented user stories:
 
-![twitter](https://cloud.githubusercontent.com/assets/3449724/20091023/481864cc-a545-11e6-88ee-1bc5df4b4add.gif)
+![twitter](https://cloud.githubusercontent.com/assets/3449724/20091216/69dea854-a546-11e6-9f7d-bb3e19c92dbc.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
